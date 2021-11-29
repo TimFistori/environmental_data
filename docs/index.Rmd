@@ -1,0 +1,13 @@
+---
+title: "Tim's Homepage"
+author: "Tim Fistori"
+date: "11/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome to Tim's web page!
+
