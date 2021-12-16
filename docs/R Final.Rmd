@@ -1,0 +1,297 @@
+---
+title: 'Final Project: R Reference'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# R Reference Guide
+# By: Timothy Fistori {.tabset .tabset-pills}
+
+
+## Loading Data and Packages
+
+### Loading Data and Packages
+
+```{r}
+library(here())
+```
+
+```{r}
+require(palmerpenguins)
+```
+
+
+### hear() & read.csv()
+```{r}
+require(here)
+ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
+```
+
+
+## Data Structures
+
+### Data Structures
+
+### c()
+
+The function c() combines or concatenates its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).
+
+All of the elements must be of the same type.
+I can’t combine character and numeric types in the same call to c()
+Here’s two examples using numeric and character data types:
+
+
+```{r}
+## Create a vector of numbers:
+num_vec  = c(1, 4, 8, 9, 13)
+
+## Create a vector of characters:
+char_vec = c("a", "fish", "data is cool")
+```
+
+I can show the contents of a vector by typing the name of the vector, or using the print() function.
+
+```{r}
+## Typing the name of the vector into the console prints the contents
+num_vec
+```
+
+
+```{r}
+## The print() function accomplishes the same task:
+print(char_vec)
+```
+
+### Length()
+
+Get or set the length of vectors (including lists) and factors, and of any other R object for which a method has been defined.
+
+Arguments:
+x -  an R object. For replacement, a vector or factor.
+
+value -  a non-negative integer or double (which will be rounded down).
+
+```{r}
+## example of length
+vector = c(1, 2, 3)
+
+length(vector)
+```
+
+### Matrix()
+
+matrix creates a matrix from the given set of values.
+
+Arguments:
+data  - an optional data vector (including a list or expression vector). Non-atomic classed R objects are coerced by as.vector and all attributes discarded.
+
+nrow  -  the desired number of rows.
+
+ncol  -  the desired number of columns.
+
+byrow -  logical. If FALSE (the default) the matrix is filled by columns, otherwise the matrix is filled by rows.
+```{r}
+## Create a Matrix of numbers:
+matrix = matrix(1:9, byrow = TRUE, nrow = 3)
+
+```
+```{r}
+matrix
+```
+
+### Data.frame()
+
+The function data.frame() creates data frames, tightly coupled collections of variables which share many of the properties of matrices and of lists, used as the fundamental data structure by most of R's modeling software.
+
+```{r}
+## example of data.frame with ginkgo data
+ginkgo = data.frame(read.csv(here("data", "ginkgo_data_2021.csv")))
+head(ginkgo)
+```
+
+### nrow()
+nrow returns the number of rows present in x
+```{r}
+## Example with nrow()
+ginkgo = data.frame(read.csv(here("data", "ginkgo_data_2021.csv")))
+nrow(ginkgo)
+```
+### ncol()
+ncol returns the number of columns present in x
+```{r}
+## Example with ncol()
+ginkgo = data.frame(read.csv(here("data", "ginkgo_data_2021.csv")))
+ncol(ginkgo)
+```
+### dim()
+dim() retrieves or sets the dimensions of an object
+```{r}
+## Example with dim()
+ginkgo = data.frame(read.csv(here("data", "ginkgo_data_2021.csv")))
+dim(ginkgo)
+```
+
+
+## Subsetting
+
+### Subsetting
+
+subsets are short-cuts for data frames
+
+### $
+$ is used to select a column in a data frame by name
+```{r}
+## Example of $ subset
+ginkgo = data.frame(read.csv(here("data", "ginkgo_data_2021.csv")))
+ginkgo_max_width = ginkgo$max_width
+head(ginkgo_max_width)
+```
+
+### [] subsetting
+```{r}
+## selects the first row
+ginkgo[1,]
+
+## Selects the element in row 2 column 3
+ginkgo[2, 3]
+
+## selects the 3rd column of the data
+ginkgo[, 3]
+```
+
+### subset(palmer)
+Return subsets of vectors, matrices or data frames which meet conditions.
+```{r}
+## Example of sub-setting Palmer penguins data
+require(palmerpenguins)
+summary(penguins)
+subset(penguins, species = Adelie)
+```
+
+## Numerical Data Exploration
+
+### Numerical Data Exploration
+
+### summary()
+summary is a generic function used to produce result summaries of the results of various model fitting functions.
+```{r}
+## Example of summary()
+summary(ginkgo)
+```
+
+### mean()
+Generic function for the (trimmed) arithmetic mean.
+```{r}
+## Example of mean()
+mean(ginkgo$max_width)
+```
+
+### sd()
+This function computes the standard deviation of the values in x.
+```{r}
+## Example of sd()
+sd(ginkgo$max_depth)
+```
+
+
+## Graphical Data Exploration
+
+### Graphical Data Exploration
+
+### plot()
+A scatter plot of the ginkgo data with graphical parameters
+```{r}
+plot(ginkgo$max_width ~ ginkgo$max_depth, main = "Ginko Max Leaf Depth VS Max Leaf Width", xlab = "Max Leaf Depth", ylab = "Max Leaf Width", xlim = c(20, 120), ylim = c(20, 120), pch = 9, cex = 1.2, col = 117)
+```
+
+### hist()
+Histogram of penguin flipper lengths
+```{r}
+hist(penguins$flipper_length_mm, breaks = 30, xlab = "Penguin Flipper Lengths(mm)", main = "Penguin Flipper Length Histograms")
+```
+
+### boxplot()
+two box plots of Ginkgo data
+```{r}
+boxplot(ginkgo$petiole_length, main = "Ginkgo petiole Boxplot", ylab = "Petiole Length")
+
+## Boxplot conditioned on seeds_present
+boxplot(petiole_length ~ seeds_present, data = ginkgo, main = "Conditonal Boxplot on Seed Presence", ylab = "Petiole")
+```
+
+
+### 4 panneled Histograms
+
+Histograms clustered using 'par' and 'mfrow'
+```{r}
+par(mfrow = c(2,2))
+hist(ginkgo$max_depth, xlab = "Leaf Depth", main = "Ginkgo Leaf Depth")
+hist(ginkgo$notch_depth, xlab = "Notch Depth", main = "Ginkgo Leaf Notch Depth")
+hist(penguins$body_mass_g, xlab = "Body Mass (g)", main = "Penguin Body Mass")
+hist(penguins$bill_length_mm, xlab = "Bill Length (mm)", main = "Penguin Bill Length")
+```
+
+
+## Distribution Functions
+
+### Distribution Functions
+
+### For Normal distribution functions
+### dnorm()
+Density, distribution function, quantile function and random generation for the normal distribution with mean equal to mean and standard deviation equal to sd.
+The probability density function.
+Given a set of values it returns the height of the probability distribution at each point.
+```{r}
+## Example of dnorm()
+dnorm(0)
+```
+
+### pnorm()
+The cumulative density function.
+```{r}
+## Example of dnorm() that gives the probability of observing a value less than 7.5 in a normal distribution with mean 10 and standard deviation 3
+pnorm(7.5, mean = 10, sd = 3)
+```
+
+### qnorm()
+The quantile function.
+Given a probability, it returns the number whose cumulative distribution matches the probability
+```{r}
+## Example of qnorm()
+qnorm(0.5)
+```
+
+###For Binomial Distribution Functions
+
+### dbinom()
+Density, distribution function, quantile function and random generation for the binomial distribution with parameters size and prob.
+The probability mass function.
+```{r}
+## Example of dbinom() for the probability of 10 successes during 12 trials where the probability of success on each trial is 0.6
+dbinom(x=10, size=12, prob=.6)
+```
+
+### pbinom()
+The cumulative mass function.
+Also, cumi=ulative probability distribution
+```{r}
+## Example of pbinom()
+pbinom(24,50,0.5)
+```
+
+### qbinom()
+The quantile function.
+Inverse of pbinom()
+```{r}
+## Example of qbinom()
+qbinom(0.5,51,1/2)
+```
+
+
+
+
+
+
+
