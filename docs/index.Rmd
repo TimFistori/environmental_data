@@ -161,12 +161,11 @@ ginkgo[2, 3]
 ginkgo[, 3]
 ```
 
-### subset(palmer)
+### subset()
 Return subsets of vectors, matrices or data frames which meet conditions.
 ```{r}
 ## Example of sub-setting Palmer penguins data
 require(palmerpenguins)
-summary(penguins)
 subset(penguins, species = Adelie)
 ```
 

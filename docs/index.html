@@ -365,29 +365,12 @@ ginkgo[, 3]</code></pre>
 ## [733]  67.0  72.0  61.0  68.0  54.0  93.0  75.0  74.0  61.0  72.0  68.0  62.0
 ## [745]  72.0  66.0  68.0  74.0  65.0  68.0  78.0  75.0  78.0  65.0  74.0 105.0</code></pre>
 </div>
-<div id="subsetpalmer" class="section level3">
-<h3>subset(palmer)</h3>
+<div id="subset" class="section level3">
+<h3>subset()</h3>
 <p>Return subsets of vectors, matrices or data frames which meet conditions.</p>
 <pre class="r"><code>## Example of sub-setting Palmer penguins data
 require(palmerpenguins)
-summary(penguins)</code></pre>
-<pre><code>##       species          island    bill_length_mm  bill_depth_mm  
-##  Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  
-##  Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  
-##  Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  
-##                                  Mean   :43.92   Mean   :17.15  
-##                                  3rd Qu.:48.50   3rd Qu.:18.70  
-##                                  Max.   :59.60   Max.   :21.50  
-##                                  NA&#39;s   :2       NA&#39;s   :2      
-##  flipper_length_mm  body_mass_g       sex           year     
-##  Min.   :172.0     Min.   :2700   female:165   Min.   :2007  
-##  1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  
-##  Median :197.0     Median :4050   NA&#39;s  : 11   Median :2008  
-##  Mean   :200.9     Mean   :4202                Mean   :2008  
-##  3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  
-##  Max.   :231.0     Max.   :6300                Max.   :2009  
-##  NA&#39;s   :2         NA&#39;s   :2</code></pre>
-<pre class="r"><code>subset(penguins, species = Adelie)</code></pre>
+subset(penguins, species = Adelie)</code></pre>
 <pre><code>##       species    island bill_length_mm bill_depth_mm flipper_length_mm
 ## 1      Adelie Torgersen           39.1          18.7               181
 ## 2      Adelie Torgersen           39.5          17.4               186
